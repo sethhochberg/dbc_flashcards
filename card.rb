@@ -16,7 +16,7 @@ class Deck
   def top_card
     current_card = @the_deck.shift
     @the_deck << current_card
-    p current_card
+    current_card
   end
 
   private
