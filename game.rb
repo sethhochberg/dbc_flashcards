@@ -1,4 +1,4 @@
-require_relative 'deck'
+require_relative 'card'
 
 module LoopingInterface
   def start_interface
