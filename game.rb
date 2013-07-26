@@ -11,14 +11,14 @@ module LoopingInterface
   end
 end
 
-def Game
+class Game
   
   attr_reader :num_correct, :num_incorrect
 
-  def init
+  def initialize
     @num_correct = 0
     @num_incorrect = 0
-    @last_guess_good = false
+    @last_guess_good = true
 
     if ARGV[0].nil?
       help and return
@@ -33,18 +33,20 @@ def Game
     
     while true
       current_card = @deck.top_card unless last_guess_wrong?
-      print 'Definition: '
+      puts 'Definition: '
       puts current_card.definition
-      print 'Guess: '
-      input = gets.chomp
+      puts 'Guess: '
+      input = $stdin.gets.chomp
       case input
       when 'exit'
         stats
         return
       when 'stats'
         stats
+	@last_guess_good = false
       when 'help'
         help
+	@last_guess_good = false
       else
         if input == current_card.answer
           correct!
@@ -67,8 +69,10 @@ def Game
   end
 
   def stats
+    puts "- "*20
     puts "You have given #{@num_correct} correct answers. Good job!"
-    puts "You have given #{@num_incorrect} wrong answers. Step it up!"  
+    puts "You have given #{@num_incorrect} wrong answers. Step it up!"
+    puts "- "*20		  
   end
 
   private
@@ -89,3 +93,5 @@ def Game
     return !@last_guess_good
   end
 end
+
+g = Game.new
