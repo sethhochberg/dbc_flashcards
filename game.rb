@@ -41,12 +41,18 @@ class Game
       when 'exit'
         stats
         return
+      when 'shuffle'
+        @deck.shuffle!
+        @last_guess_good = false
+        puts '-' * 20
+        puts "Deck Shuffled!"
+        puts '-' * 20
       when 'stats'
         stats
-	@last_guess_good = false
+	      @last_guess_good = false
       when 'help'
         help
-	@last_guess_good = false
+        @last_guess_good = false
       else
         if input == current_card.answer
           correct!
@@ -71,8 +77,10 @@ class Game
   def stats
     puts "- "*20
     puts "You have given #{@num_correct} correct answers. Good job!"
-    puts "You have given #{@num_incorrect} wrong answers. Step it up!"
-    puts "- "*20		  
+    puts "You have given #{@num_incorrect} wrong answers."
+    puts "Step it up!" if @num_incorrect > 0
+    puts "Incredible!" if @num_incorrect == 0
+    puts "- "*20    
   end
 
   private
@@ -94,4 +102,4 @@ class Game
   end
 end
 
-g = Game.new
+Game.new

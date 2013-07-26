@@ -19,6 +19,10 @@ class Deck
     current_card
   end
 
+  def shuffle!
+    @the_deck.shuffle!
+  end
+
   private
 
   def make_deck(filename)
